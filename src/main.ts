@@ -1,60 +1,103 @@
-import './style.css'
-import heroImg from './assets/hero.png'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.ts'
+import './style.css';
+import { bloques } from './data';
+import { cargarEstado, guardarEstado } from './storage';
+import type { BloqueDef, EstadoCanvas } from './types';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// ESTADO: una sola fuente de verdad para todo el canvas. Patrón "estado +
+// render()": algo cambia el estado -> se llama a lo que depende de él para
+// que se redibuje. Es el mismo principio que usan React/Vue por debajo,
+// hecho a mano acá porque no hay framework (ADR-0002: solo Vite+TS, sin libs
+// de UI — no hace falta para 9 bloques fijos).
+const estado: EstadoCanvas = cargarEstado();
 
-<div class="ticks"></div>
+// Debounce del autosave: si guardáramos en localStorage en cada tecla,
+// escribiríamos a disco decenas de veces por segundo mientras el usuario
+// tipea — caro y sin sentido. Esperamos 400ms de silencio después de la
+// última tecla y ahí guardamos una sola vez.
+let timeoutGuardado: ReturnType<typeof setTimeout> | undefined;
+function guardarConDebounce(): void {
+  clearTimeout(timeoutGuardado);
+  timeoutGuardado = setTimeout(() => guardarEstado(estado), 400);
+}
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+// Lo que pasa cada vez que el usuario cambia algo. Por ahora solo guarda.
+// Cuando existan src/render.ts (dibuja el SVG) y src/rules.ts (motor de
+// coherencia), este es el lugar donde se los llama — el resto del código
+// no necesita saber que existen, main.ts es el único que orquesta.
+function alCambiarAlgo(): void {
+  guardarConDebounce();
+  // TODO(render): renderizarSVG(estado) — src/render.ts, no existe todavía
+  // TODO(rules): revisarCoherencia(estado) — src/rules.ts, no existe todavía
+}
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+function renderBloque(bloque: BloqueDef, contenedor: HTMLElement): void {
+  const seccion = document.createElement('fieldset');
+  seccion.className = 'bloque';
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+  // legend/p con textContent, nunca innerHTML: bloque.titulo y .tooltip son
+  // datos nuestros (data/canvas/*.json), no del usuario, pero es el hábito
+  // que importa mantener siempre — más abajo, con el texto del usuario, es
+  // donde innerHTML sería una vulnerabilidad XSS real.
+  const titulo = document.createElement('legend');
+  titulo.textContent = bloque.titulo;
+  seccion.appendChild(titulo);
+
+  const tooltip = document.createElement('p');
+  tooltip.className = 'tooltip';
+  tooltip.textContent = bloque.tooltip;
+  seccion.appendChild(tooltip);
+
+  // Tags: <select multiple> es el control nativo para "elegí varios de una
+  // lista corta" (ADR-0005). Ladder rung 3 (feature nativa de la plataforma)
+  // — no hace falta una librería de chips/multiselect para esto en v1.
+  const select = document.createElement('select');
+  select.multiple = true;
+  select.size = Math.min(bloque.tags.length, 6); // hasta 6 tags visibles sin scroll
+
+  const seleccionGuardada = estado[bloque.id]?.tagsSeleccionados ?? [];
+  for (const tag of bloque.tags) {
+    const opcion = document.createElement('option');
+    opcion.value = tag.id;
+    opcion.textContent = tag.label;
+    opcion.selected = seleccionGuardada.includes(tag.id); // restaura selección al recargar
+    select.appendChild(opcion);
+  }
+  select.addEventListener('change', () => {
+    estado[bloque.id] ??= { tagsSeleccionados: [], texto: '' };
+    estado[bloque.id].tagsSeleccionados = [...select.selectedOptions].map((o) => o.value);
+    alCambiarAlgo();
+  });
+  seccion.appendChild(select);
+
+  // Texto libre: lo que el motor de reglas NO evalúa (ADR-0005 — eso lo hacen
+  // los tags de arriba) pero sí es lo que se termina dibujando en el SVG.
+  const textarea = document.createElement('textarea');
+  textarea.placeholder = 'Detalle en tus palabras...';
+  textarea.value = estado[bloque.id]?.texto ?? '';
+  textarea.addEventListener('input', () => {
+    estado[bloque.id] ??= { tagsSeleccionados: [], texto: '' };
+    estado[bloque.id].texto = textarea.value;
+    alCambiarAlgo();
+  });
+  seccion.appendChild(textarea);
+
+  contenedor.appendChild(seccion);
+}
+
+function montarApp(): void {
+  const app = document.querySelector<HTMLDivElement>('#app');
+  if (!app) throw new Error('Falta <div id="app"> en index.html');
+
+  // Única vez que tocamos innerHTML en todo el archivo, y con un string fijo
+  // vacío (no con datos) — solo para limpiar el contenido default de Vite.
+  app.innerHTML = '';
+
+  const grilla = document.createElement('div');
+  grilla.className = 'grilla-canvas';
+  for (const bloque of bloques) {
+    renderBloque(bloque, grilla);
+  }
+  app.appendChild(grilla);
+}
+
+montarApp();
