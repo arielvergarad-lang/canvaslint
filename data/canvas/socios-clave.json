@@ -1,0 +1,14 @@
+{
+  "id": "socios-clave",
+  "titulo": "Socios Clave",
+  "tooltip": "Red de proveedores y socios que hacen funcionar el modelo",
+  "tags": [
+    { "id": "alianza-no-competidores", "label": "Alianza estratégica (no competidores)" },
+    { "id": "coopetencia", "label": "Coopetencia (alianza entre competidores)" },
+    { "id": "joint-venture", "label": "Joint venture" },
+    { "id": "comprador-proveedor", "label": "Relación comprador-proveedor" },
+    { "id": "motivo-economia-escala", "label": "Motivo: economía de escala" },
+    { "id": "motivo-reduccion-riesgo", "label": "Motivo: reducción de riesgo" },
+    { "id": "motivo-adquisicion-recursos", "label": "Motivo: adquisición de recursos" }
+  ]
+}

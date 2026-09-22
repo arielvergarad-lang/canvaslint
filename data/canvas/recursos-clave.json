@@ -1,0 +1,11 @@
+{
+  "id": "recursos-clave",
+  "titulo": "Recursos Clave",
+  "tooltip": "Activos más importantes para que el modelo funcione",
+  "tags": [
+    { "id": "fisicos", "label": "Físicos" },
+    { "id": "intelectuales", "label": "Intelectuales (marca, patente, datos, know-how)" },
+    { "id": "humanos", "label": "Humanos" },
+    { "id": "financieros", "label": "Financieros" }
+  ]
+}

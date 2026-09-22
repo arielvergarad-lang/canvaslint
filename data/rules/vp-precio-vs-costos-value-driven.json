@@ -1,0 +1,11 @@
+{
+  "id": "vp-precio-vs-costos-value-driven",
+  "bloques": ["propuesta-valor", "estructura-costos"],
+  "condiciones": [
+    { "bloque": "propuesta-valor", "tags_any": ["precio"] },
+    { "bloque": "estructura-costos", "tags_any": ["orientada-a-valor"] }
+  ],
+  "mensaje": "Una propuesta de valor centrada en precio bajo compite mal con una estructura de costos orientada a valor (alto costo de servicio) — revisá coherencia.",
+  "fuente": "Business Model Generation, cap. Cost Structure",
+  "confianza": "alta"
+}

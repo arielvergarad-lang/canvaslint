@@ -1,0 +1,11 @@
+{
+  "id": "asistencia-dedicada-vs-mercado-masivo",
+  "bloques": ["relacion-clientes", "segmentos-clientes"],
+  "condiciones": [
+    { "bloque": "relacion-clientes", "tags_any": ["asistencia-personal-dedicada"] },
+    { "bloque": "segmentos-clientes", "tags_any": ["mercado-masivo"] }
+  ],
+  "mensaje": "Asistencia personal dedicada sobre un mercado masivo no suele escalar en costo — revisá coherencia.",
+  "fuente": "Business Model Generation + Isaac Jeffries, \"Nine Big Business Model Canvas Mistakes\"",
+  "confianza": "alta"
+}

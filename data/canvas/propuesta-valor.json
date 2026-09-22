@@ -1,0 +1,15 @@
+{
+  "id": "propuesta-valor",
+  "titulo": "Propuesta de Valor",
+  "tooltip": "Qué creás para el segmento — el motivo por el que te eligen",
+  "tags": [
+    { "id": "novedad", "label": "Novedad" },
+    { "id": "rendimiento", "label": "Rendimiento/performance" },
+    { "id": "personalizacion", "label": "Personalización" },
+    { "id": "hacer-el-trabajo", "label": "Hacer el trabajo (getting the job done)" },
+    { "id": "diseno", "label": "Diseño" },
+    { "id": "marca-estatus", "label": "Marca / estatus" },
+    { "id": "precio", "label": "Precio" },
+    { "id": "reduccion-costo-riesgo", "label": "Reducción de costo/riesgo/accesibilidad" }
+  ]
+}

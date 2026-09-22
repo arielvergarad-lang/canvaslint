@@ -1,0 +1,13 @@
+{
+  "id": "estructura-costos",
+  "titulo": "Estructura de Costos",
+  "tooltip": "Todos los costos en los que incurrís para operar",
+  "tags": [
+    { "id": "orientada-a-costos", "label": "Orientada a costos (cost-driven)" },
+    { "id": "orientada-a-valor", "label": "Orientada a valor (value-driven)" },
+    { "id": "costos-fijos", "label": "Costos fijos" },
+    { "id": "costos-variables", "label": "Costos variables" },
+    { "id": "economias-escala", "label": "Economías de escala" },
+    { "id": "economias-alcance", "label": "Economías de alcance" }
+  ]
+}

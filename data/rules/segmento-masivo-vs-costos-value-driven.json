@@ -1,0 +1,11 @@
+{
+  "id": "segmento-masivo-vs-costos-value-driven",
+  "bloques": ["segmentos-clientes", "estructura-costos"],
+  "condiciones": [
+    { "bloque": "segmentos-clientes", "tags_any": ["mercado-masivo"] },
+    { "bloque": "estructura-costos", "tags_any": ["orientada-a-valor"] }
+  ],
+  "mensaje": "Mercado masivo normalmente compite por volumen/precio — una estructura de costos orientada a valor (value-driven) suele ser incoherente con este segmento.",
+  "fuente": "Business Model Generation, cap. Cost Structure (ej. Southwest/easyJet vs hoteles de lujo)",
+  "confianza": "alta"
+}

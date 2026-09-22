@@ -1,0 +1,11 @@
+{
+  "id": "vp-compleja-sin-asistencia-humana",
+  "bloques": ["propuesta-valor", "relacion-clientes"],
+  "condiciones": [
+    { "bloque": "propuesta-valor", "tags_any": ["personalizacion", "novedad"] },
+    { "bloque": "relacion-clientes", "tags_any": ["asistencia-personal", "asistencia-personal-dedicada", "comunidades", "co-creacion"], "negado": true }
+  ],
+  "mensaje": "Propuesta de valor compleja/personalizada sin ninguna forma de asistencia humana en la relación con clientes (solo autoservicio/automatizado) — revisá si el soporte alcanza.",
+  "fuente": "Business Model Generation, 5 fases del canal (adaptado a relación con clientes)",
+  "confianza": "media"
+}

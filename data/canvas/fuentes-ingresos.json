@@ -1,0 +1,14 @@
+{
+  "id": "fuentes-ingresos",
+  "titulo": "Fuentes de Ingresos",
+  "tooltip": "De dónde sale el efectivo que generás",
+  "tags": [
+    { "id": "venta-activos", "label": "Venta de activos" },
+    { "id": "cuota-uso", "label": "Cuota de uso" },
+    { "id": "suscripcion", "label": "Suscripción" },
+    { "id": "prestamo-alquiler", "label": "Préstamo / alquiler / leasing" },
+    { "id": "licenciamiento", "label": "Licenciamiento" },
+    { "id": "comision-intermediacion", "label": "Comisión de intermediación" },
+    { "id": "publicidad", "label": "Publicidad" }
+  ]
+}

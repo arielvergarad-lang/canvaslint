@@ -1,0 +1,13 @@
+{
+  "id": "relacion-clientes",
+  "titulo": "Relación con Clientes",
+  "tooltip": "Qué tipo de relación establecés con cada segmento",
+  "tags": [
+    { "id": "asistencia-personal", "label": "Asistencia personal" },
+    { "id": "asistencia-personal-dedicada", "label": "Asistencia personal dedicada" },
+    { "id": "autoservicio", "label": "Autoservicio" },
+    { "id": "servicios-automatizados", "label": "Servicios automatizados" },
+    { "id": "comunidades", "label": "Comunidades" },
+    { "id": "co-creacion", "label": "Co-creación" }
+  ]
+}

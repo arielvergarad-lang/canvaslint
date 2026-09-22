@@ -1,0 +1,11 @@
+{
+  "id": "vp-personalizacion-sin-actividad-resolucion-problemas",
+  "bloques": ["propuesta-valor", "actividades-clave"],
+  "condiciones": [
+    { "bloque": "propuesta-valor", "tags_any": ["personalizacion"] },
+    { "bloque": "actividades-clave", "tags_any": ["resolucion-de-problemas"], "negado": true }
+  ],
+  "mensaje": "Propuesta de valor de personalización normalmente requiere actividades clave de resolución de problemas (consultoría/a medida) — no la marcaste, revisá si falta.",
+  "fuente": "Business Model Generation, cap. Key Activities",
+  "confianza": "media"
+}

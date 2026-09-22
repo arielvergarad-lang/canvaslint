@@ -1,0 +1,10 @@
+{
+  "id": "actividades-clave",
+  "titulo": "Actividades Clave",
+  "tooltip": "Acciones más importantes para que el modelo funcione",
+  "tags": [
+    { "id": "produccion", "label": "Producción" },
+    { "id": "resolucion-de-problemas", "label": "Resolución de problemas (consultoría/I+D/a medida)" },
+    { "id": "plataforma-red", "label": "Plataforma / red" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "canales",
+  "titulo": "Canales",
+  "tooltip": "Cómo comunicás, alcanzás y entregás tu propuesta de valor",
+  "tags": [
+    { "id": "venta-directa", "label": "Venta directa / fuerza de ventas" },
+    { "id": "sitio-web-propio", "label": "Sitio web propio" },
+    { "id": "tienda-fisica-propia", "label": "Tienda física propia" },
+    { "id": "tienda-socio", "label": "Tienda de socio / distribuidor" },
+    { "id": "mayorista", "label": "Mayorista" },
+    { "id": "marketplace", "label": "Marketplace / plataforma de terceros" }
+  ]
+}

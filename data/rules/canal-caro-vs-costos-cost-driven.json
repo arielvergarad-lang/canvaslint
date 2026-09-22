@@ -1,0 +1,11 @@
+{
+  "id": "canal-caro-vs-costos-cost-driven",
+  "bloques": ["canales", "estructura-costos"],
+  "condiciones": [
+    { "bloque": "canales", "tags_any": ["venta-directa", "tienda-fisica-propia"] },
+    { "bloque": "estructura-costos", "tags_any": ["orientada-a-costos"] }
+  ],
+  "mensaje": "Canal de venta directa o tienda física propia suele ser caro de operar — revisá si calza con una estructura de costos orientada a costos (cost-driven).",
+  "fuente": "Strategyzer, guía oficial del BMC",
+  "confianza": "alta"
+}

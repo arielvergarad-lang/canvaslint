@@ -1,0 +1,12 @@
+{
+  "id": "segmentos-clientes",
+  "titulo": "Segmentos de Clientes",
+  "tooltip": "Grupos de personas u organizaciones que buscás alcanzar y servir",
+  "tags": [
+    { "id": "mercado-masivo", "label": "Mercado masivo" },
+    { "id": "nicho", "label": "Nicho de mercado" },
+    { "id": "segmentado", "label": "Segmentado (subgrupos por edad/ingreso/etc.)" },
+    { "id": "diversificado", "label": "Diversificado (necesidades muy distintas)" },
+    { "id": "plataforma-multilateral", "label": "Plataforma multilateral (2+ lados)" }
+  ]
+}
